@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title>
+    testing PHP and database
+  </title>
+</head>
+<body>
+<textarea id="txt" row="20"></textarea>
+<button onclick="run()" id="go">GO da</button>
+<script src="jquery.min.js"></script>
+<script>
+ function run()
+ {alert(document.getElementById("txt").innerHTML);
+   $.ajax({
+    url:"my.php",
+    type:'POST',
+ //dataType: "json",
+    data:
+    {
+  id:1,
+  data:document.getElementById("txt").value,
+    },
+    success: function(msg)
+    { console.log(msg);}
+ });
+ }
+</script>
+</body>
+</html>
