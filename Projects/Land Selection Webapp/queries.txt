@@ -1,0 +1,362 @@
+
+CREATE OR REPLACE FUNCTION trial(tbl text[],tag text[],geo geometry)
+  RETURNS boolean AS
+$BODY$
+DECLARE i integer;
+DECLARE len integer;
+DECLARE result boolean;
+DECLARE bool boolean;
+
+	BEGIN
+		
+		--EXECUTE format('SELECT count(geom) from %s', tbl)
+		--INTO result;
+		--return result;
+		result=true;
+		SELECT ARRAY_LENGTH(tbl,1) INTO len;
+		FOR i IN 1..len LOOP
+		EXECUTE 'select 1 from '||tbl[i]||' where name=any(array['||tag[i]||']) and st_dwithin($1::geography,geom::geography,0)=true limit 1' into result using geo;
+			IF result IS NULL THEN
+			result=false;
+			EXIT;
+			END IF;
+		END LOOP;
+		return result;
+	END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+  
+
+
+--delete from points where chk_intersects_dwith_geom(geom,0)=true;
+select trial(array['grndwater','poly1'],array['''Orange'',''Yellow'',''res''','''qqewew'',''asas'',''magenta'''],geom) from points;
+
+  
+
+
+--delete from points where chk_intersects_dwith_geom(geom,0)=true;
+select trial(array['grndwater','poly1'],array['''Orange'',''Yellow'',''res''','''qqewew'',''asas'',''magenta'''],geom) from points;
+
+
+
+ --truncate table points;insert into points (select * from points_cpy);
+
+
+select public.st_pointfromwkb(st_asewkb(geom),4326) from points limit 1;
+
+
+EXECUTE 'select st_dwithin (geo::geography,geom::geography,0) from '||tbl[i]||' where name=any(array['||tag[i]||']) and st_dwithin(geo::geography,geom::geography,0)=true',tbl[i],tag[i]) into bool;
+
+
+
+CREATE OR REPLACE FUNCTION trial(tbl text[],tag text[],geo geometry)
+  RETURNS boolean AS
+$BODY$
+DECLARE i integer;
+DECLARE len integer;
+DECLARE result boolean;
+DECLARE bool boolean[0];
+
+	BEGIN
+		
+		--EXECUTE format('SELECT count(geom) from %s', tbl)
+		--INTO result;
+		--return result;
+		result=true;
+		SELECT ARRAY_LENGTH(tbl,1) INTO len;
+		FOR i IN 1..len LOOP
+		EXECUTE format('select st_dwithin(geo::geography,geom::geography,0) from %s where name=any(array[%s]) and st_dwithin(geo::geography,geom::geography,0)=true',tbl[i],tag[i]) into bool;
+
+			IF (bool!=true) THEN
+			
+			END IF;
+		
+		END LOOP;
+		return result;
+	END;
+$BODY$
+  LANGUAGE plpgsql VOLATILE
+  COST 100;
+
+  
+
+
+--delete from points where chk_intersects_dwith_geom(geom,0)=true;
+select trial(array['grndwater','poly1'],array['''Orange'',''Yellow'',''res''','''qqewew'',''asas'',''magenta'''],geom) from points;
+
+
+
+ --truncate table points;insert into points (select * from points_cpy);
+
+select st_transform(geom,utmzone(geom)) from points;
+
+select st_dwithin(ST_SetSRID(ST_Point(80.22525787353516,13.009575453629898),4326)::geography,geom::geography,0) from grndwater where name=any(array['Yellow','Rose']) and st_dwithin(ST_SetSRID(ST_Point(80.22525787353516,13.009575453629898),4326)::geography,geom::geography,0)=true;
+
+shp2pgsql -I "%TRAINING_ROOT%\data\user_data\Mainrd.shp" public.main_roads | psql -U postgres -d database
+
+SELECT EXISTS (
+    SELECT 1 
+    FROM   pg_catalog.pg_class c
+    JOIN   pg_catalog.pg_namespace n ON n.oid = c.relnamespace
+    WHERE  n.nspname = 'public'
+    AND    c.relname = 'nodes'
+    AND    c.relkind = 'r'    -- only tables(?)
+);
+
+
+insert into polygons_bon (select * from polygons_all where st_dwithin(ST_GeomFromText('POLYGON((80.219606259259 13.025769740741,80.251087740741 13.025769740741,80.251087740741 12.994288259259,80.219606259259 12.994288259259,80.219606259259 13.025769740741))',4326)::geography,geom::geography,0)=true)
+
+
+insert into lines_bon (select * from lines_all where st_dwithin(ST_GeomFromText('POLYGON((80.219606259259 13.025769740741,80.251087740741 13.025769740741,80.251087740741 12.994288259259,80.219606259259 12.994288259259,80.219606259259 13.025769740741))',4326)::geography,geom::geography,0)=true)
+
+
+
+
+CREATE or replace FUNCTION chk_intersects_dwith(lat double precision,lng double precision,dis double precision DEFAULT 5) RETURNS boolean as $$
+DECLARE pt geography;
+	BEGIN
+		select ST_SetSRID(ST_Point(lng,lat),4326) into pt;
+		
+		IF    (true = any(select st_dwithin(pt::geography,geom::geography,dis) from polygons)) THEN
+			return true;
+		ELSIF (true = any(select st_dwithin(pt::geography,geom::geography,dis) from polygons_bon)) THEN
+			return true;
+		ELSIF (true = any(select st_dwithin(pt::geography,geom::geography,dis) from lines)) THEN
+			return true;
+		ELSIF (true = any(select st_dwithin(pt::geography,geom::geography,dis) from lines_bon)) THEN
+			return true;
+		ELSE
+			return false;
+		END IF;
+		
+	END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+CREATE or replace FUNCTION chk_intersects_buff(lat double precision,lng double precision,dis double precision DEFAULT 5) RETURNS boolean as $$
+DECLARE pt geography;
+	BEGIN
+		select st_buffer_meters(ST_SetSRID(ST_Point(lng,lat),4326),dis) into pt;
+		
+		IF    (true = any(select st_intersects(pt::geography,geom::geography) from polygons)) THEN
+			return true;
+		ELSIF (true = any(select st_intersects(pt::geography,geom::geography) from polygons_bon)) THEN
+			return true;
+		ELSIF (true = any(select st_intersects(pt::geography,geom::geography) from lines)) THEN
+			return true;
+		ELSIF (true = any(select st_intersects(pt::geography,geom::geography) from lines_bon)) THEN
+			return true;
+		ELSE
+			return false;
+		END IF;
+		
+	END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE or replace FUNCTION chk_intersects(lat double precision,lng double precision) RETURNS boolean as $$
+DECLARE pt geography;
+	BEGIN
+		select ST_SetSRID(ST_Point(lng,lat),4326) into pt;
+		
+		IF    (true = any(select st_intersects(pt::geography,geom::geography) from polygons)) THEN
+			return true;
+		ELSIF (true = any(select st_intersects(pt::geography,geom::geography) from polygons_bon)) THEN
+			return true;
+		ELSIF (true = any(select st_intersects(pt::geography,geom::geography) from lines)) THEN
+			return true;
+		ELSIF (true = any(select st_intersects(pt::geography,geom::geography) from lines_bon)) THEN
+			return true;
+		ELSE
+			return false;
+		END IF;
+		
+	END;
+$$ LANGUAGE plpgsql;
+
+insert into polygons (select id,ST_MakePolygon(linestring) from ways where nodes[1]=nodes[array_upper(nodes,1)]);
+
+insert into lines (select id,linestring from ways where nodes[1]!=nodes[array_upper(nodes,1)]);
+-----------------------
+alter table nodes
+add column tagsarr text[];
+
+CREATE TABLE polygons (id bigint NOT NULL primary key);
+SELECT AddGeometryColumn('polygons', 'geom', 4326, 'polygon', 2);
+CREATE INDEX idx_polygons_geom ON polygons USING gist (geom);
+
+CREATE TABLE lines (id bigint NOT NULL primary key);
+SELECT AddGeometryColumn('lines', 'geom', 4326, 'linestring', 2);
+CREATE INDEX idx_lines_geom ON lines USING gist (geom);
+
+CREATE TABLE polygons_all (id bigint NOT NULL primary key);
+SELECT AddGeometryColumn('polygons_all', 'geom', 4326, 'polygon', 2);
+CREATE INDEX idx_polygons_all_geom ON polygons_all USING gist (geom);
+
+CREATE TABLE lines_all (id bigint NOT NULL primary key);
+SELECT AddGeometryColumn('lines_all', 'geom', 4326, 'linestring', 2);
+CREATE INDEX idx_lines_all_geom ON lines_all USING gist (geom);
+
+CREATE TABLE polygons_bon (id bigint NOT NULL primary key);
+SELECT AddGeometryColumn('polygons_bon', 'geom', 4326, 'polygon', 2);
+CREATE INDEX idx_polygons_bon_geom ON polygons_bon USING gist (geom);
+
+CREATE TABLE lines_bon (id bigint NOT NULL primary key);
+SELECT AddGeometryColumn('lines_bon', 'geom', 4326, 'linestring', 2);
+CREATE INDEX idx_lines_bon_geom ON lines_bon USING gist (geom);
+
+2 functions fun,st_buffer_meters
+--------------------------------
+
+
+select ST_MakePolygon(linestring),id from ways ;
+
+
+CREATE or replace FUNCTION createlines(i bigint) RETURNS geometry as $$
+DECLARE passed geometry;
+	BEGIN
+		with a as(select (nodes.geom) as b 
+		from ways,nodes,way_nodes wn 
+		where array[nodes.id]<@nodes and nodes[1]!=nodes[array_upper(nodes,1)] and ways.id=i and nodes.id=wn.node_id and ways.id=wn.way_id order by wn.sequence_id)
+		select ST_MakeLine(array_agg(b)) from a
+		INTO passed;
+		return passed;
+	END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE or replace FUNCTION createpolys(i bigint) RETURNS geometry as $$
+DECLARE passed geometry;
+	BEGIN
+		with a as(select (nodes.geom) as b 
+		from ways,nodes,way_nodes wn 
+		where array[nodes.id]<@nodes and nodes[1]=nodes[array_upper(nodes,1)] and ways.id=i and nodes.id=wn.node_id and ways.id=wn.way_id order by wn.sequence_id)
+		select ST_MakePolygon(ST_MakeLine(array_agg(b))) from a
+		INTO passed;
+		return passed;
+	END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+
+with a as(select array_agg(nodes.geom) as b from ways,nodes where nodes.id=any(nodes) and ways.id=348495070 )
+select ST_MakePolygon(ST_MakeLine(array_append(b,b[1]))) from  a;
+
+with a as(select array_agg(nodes.geom) as b from ways,nodes where nodes.id=any(nodes) and ways.id=348495070 )
+select array_append(b,b[1]) from  a;
+
+WITH a as (SELECT 1000::float as b)
+select array_to_json(s.tagsarr),st_asgeojson(s.geom)from nodes s where 
+st_dwithin(ST_SetSRID(ST_Point(80.2478338,13.0062997),4326)::geography,s.geom::geography,(select b from a))=true;
+
+
+WITH a as (SELECT 1000::float as b)
+select array_to_json(s.tagsarr),st_asgeojson(s.geom)from nodes n,nodes s where n.id=249110186 and st_dwithin(n.geom::geography,s.geom::geography,(select b from a))=true;
+
+
+WITH a as (SELECT 1000::float as b)
+select s.id,s.tagsarr,st_dwithin(n.geom::geography,s.geom::geography,(select b from a)),st_asgeojson(s.geom),ST_Distance_Sphere(n.geom,s.geom) from nodes n,nodes s where n.id=249110186 and st_dwithin(n.geom::geography,s.geom::geography,(select b from a))=true;
+
+
+CREATE or replace FUNCTION fun_wo_node(i bigint) RETURNS text[] as $$
+DECLARE passed text[];
+	BEGIN
+		WITH v(a) AS (select hstore_to_matrix(w.tags) from ways w,nodes n,way_nodes wn where n.id=wn.node_id and wn.way_id=w.id and n.id=i)
+		SELECT array_cat_agg(a) FROM v
+		INTO passed;
+		return passed;
+	END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE or replace FUNCTION fun_txt(i bigint,c char(1) DEFAULT '|') RETURNS text[] as $$
+DECLARE passed text[];
+	BEGIN
+		WITH v(a) AS (select array_to_string(hstore_to_matrix(w.tags),c) from ways w,nodes n,way_nodes wn where n.id=wn.node_id and wn.way_id=w.id and n.id=i)
+		SELECT array_agg(a)||array_to_string(hstore_to_matrix((select tags from nodes where id=i)),c) FROM v INTO passed;
+		return passed ;
+	END;
+$$ LANGUAGE plpgsql;
+
+
+
+CREATE or replace FUNCTION fun_txt_wo_node(i bigint,c char(1) DEFAULT '|') RETURNS text[] as $$
+DECLARE passed text[];
+	BEGIN
+		WITH v(a) AS (select array_to_string(hstore_to_matrix(w.tags),c) from ways w,nodes n,way_nodes wn where n.id=wn.node_id and wn.way_id=w.id and n.id=i)
+		SELECT array_agg(a) FROM v INTO passed;
+		return passed;
+	END;
+$$ LANGUAGE plpgsql;
+
+
+
+
+
+CREATE or replace FUNCTION fun(i bigint) RETURNS text[] as $$
+DECLARE passed text[];
+	BEGIN
+		WITH v(a) AS (select hstore_to_matrix(w.tags) from ways w,nodes n,way_nodes wn where n.id=wn.node_id and wn.way_id=w.id and n.id=i)
+		SELECT array_cat_agg(a)||hstore_to_matrix((select tags from nodes where id=i)::hstore) FROM v
+		INTO passed;
+		return passed;
+	END;
+$$ LANGUAGE plpgsql;
+
+
+269219635
+select fun(nodes.id) from nodes;
+
+
+
+
+CREATE FUNCTION fun(i bigint) RETURNS text[] as $$
+DECLARE passed text[];
+	BEGIN
+		WITH v(a) AS (select hstore_to_matrix(w.tags) from ways w,nodes n,way_nodes wn where n.id=wn.node_id and wn.way_id=w.id and n.id=i)
+		SELECT array_cat_agg(a) FROM v INTO passed;
+		return passed;
+	END;
+$$ LANGUAGE plpgsql;
+
+
+
+WITH v(a) AS (select array_to_string(hstore_to_matrix(w.tags),'|') from ways w,nodes n,way_nodes wn where n.id=wn.node_id and wn.way_id=w.id and n.id=269766516)
+SELECT array_agg(a) FROM v;
+
+
+
+
+WITH v(a) AS (select hstore_to_matrix(w.tags) from ways w,nodes n,way_nodes wn where n.id=wn.node_id and wn.way_id=w.id and n.id=269766516)
+SELECT array_cat_agg(a) FROM v;
+
+
+--------------
+CREATE AGGREGATE array_cat_agg(anyarray) (
+  SFUNC=array_cat,
+  STYPE=anyarray
+);
+
+-------------------
+
+select array_agg(c) 
+from 
+(select unnest(hstore_to_matrix(w.tags)) from ways w,nodes n,way_nodes wn where n.id=wn.node_id and wn.way_id=w.id) as d(c);
+
+
+
+select array_agg(c) 
+from 
+(select unnest(hstore_to_matrix(w.tags)) from ways w,nodes n,way_nodes wn where n.tags='' and n.id=wn.node_id and wn.way_id=w.id and n.id=269766516) as dt(c);
+
+select array_agg(c) from (select unnest(hstore_to_matrix(w.tags)) from ways w,nodes n,way_nodes wn where n.tags='' and n.id=wn.node_id and wn.way_id=w.id and n.id=269766516) as dt(c);
+update nodes set tagsarr=hstore_to_matrix(ways.tags) from ways where ARRAY[nodes.id]<@ways.nodes;
+update nodes set tagsarr=null;
+update nodes set tagsarr=nodes.tagsarr||hstore_to_matrix(ways.tags) from ways where ARRAY[nodes.id]<@ways.nodes;
+select (each(w.tags)).value,(each(w.tags)).key from ways w,nodes n,way_nodes wn where n.tags='' and n.id=wn.node_id and wn.way_id=w.id and n.id=269766516

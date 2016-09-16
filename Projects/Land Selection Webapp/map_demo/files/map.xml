@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2016-02-09T14:24:02Z"/>
+
+  <node id="276613574" lat="13.1185411" lon="80.0750425" version="4" timestamp="2015-03-15T16:24:52Z" changeset="29499107" uid="1306" user="PlaneMad">
+    <tag k="name" v="Hindu College"/>
+    <tag k="railway" v="station"/>
+  </node>
+  <node id="1896333049" lat="13.1303994" lon="80.1050834" version="1" timestamp="2012-09-03T13:49:26Z" changeset="12967749" uid="854638" user="BhagathSingh">
+    <tag k="amenity" v="school"/>
+    <tag k="name" v="Vijayantha"/>
+  </node>
+  <node id="1896342348" lat="13.1299083" lon="80.1108341" version="1" timestamp="2012-09-03T13:56:07Z" changeset="12967749" uid="854638" user="BhagathSingh">
+    <tag k="amenity" v="school"/>
+    <tag k="name" v="KV HVF"/>
+  </node>
+  <node id="1896345709" lat="13.1242505" lon="80.1062261" version="1" timestamp="2012-09-03T13:58:22Z" changeset="12967749" uid="854638" user="BhagathSingh">
+    <tag k="amenity" v="school"/>
+    <tag k="name" v="VHHS"/>
+  </node>
+  <node id="3678939665" lat="13.1182744" lon="80.1015427" version="1" timestamp="2015-08-03T13:21:20Z" changeset="33069536" uid="753014" user="KIngaJOnes">
+    <tag k="name" v="Avadi"/>
+    <tag k="railway" v="station"/>
+    <tag k="ref" v="AVD"/>
+  </node>
+
+</osm>

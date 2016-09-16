@@ -1,0 +1,4 @@
+1.install postgres
+2.install post gis for postgres
+3.restore the database_backup.backup file into postgres
+4.Set osmosis/bin to PATH variables

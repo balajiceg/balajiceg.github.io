@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/reg_phone"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="86dp"
+
+        android:hint="Phone No" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/reg_name"
+        android:layout_marginTop="66dp"
+        android:hint="Name"
+        android:layout_below="@+id/reg_phone"
+        android:layout_alignStart="@+id/reg_phone" />
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/reg_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:src="@android:drawable/ic_menu_send"
+        android:layout_marginBottom="65dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/reg_name"
+        android:background="#fbfbfb" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/regprogress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp" />
+
+</RelativeLayout>

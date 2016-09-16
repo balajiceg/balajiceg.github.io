@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:clickable="false"
+    android:focusable="false">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:id="@+id/tk_rd_linearLayout">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:id="@+id/start_pt"
+            android:hint="Start"
+            android:clickable="true"
+            android:focusable="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".3"
+            android:id="@+id/textClock"
+            android:textSize="20dp"
+            android:text="first"
+            android:layout_below="@+id/destination"
+            android:layout_alignStart="@+id/destination"
+            android:layout_alignEnd="@+id/destination" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tk_rd_linearLayout"
+        android:id="@+id/tk_rid_linearLayout2">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_weight="0.7"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:clickable="true"
+            android:focusable="false"
+            android:id="@+id/destination"
+            android:hint="Destination"
+
+            android:layout_below="@+id/linearLayout"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".3"
+            android:id="@+id/textClock1"
+            android:textSize="20dp"
+            android:text="second"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toEndOf="@+id/destination" />
+    </LinearLayout>
+
+
+
+    <fragment
+        android:id="@+id/takrid_data_map"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        tools:layout="@layout/abc_action_bar_title_item"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tk_rid_linearLayout2">
+    </fragment>
+    <android.support.design.widget.FloatingActionButton
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:backgroundTint="@color/colorPrimary"
+        android:id="@+id/fab_tak_rid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:cropToPadding="false" />
+
+
+
+</RelativeLayout>

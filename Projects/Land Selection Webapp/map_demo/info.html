@@ -1,0 +1,426 @@
+<html lang="en">
+
+<head>
+<!--my include-->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+   <title>K! Project</title>
+	<link rel="shortcut icon" href="files/favicon.png" />
+
+	<link rel="stylesheet" href="files/bootstrap/css/bootstrap.css" type="text/css" />
+
+
+
+
+	<link href="files/bootstrap/css/bootstrap-switch.css" rel="stylesheet">
+<script src="files/bootstrap/js/jquery.min.js"></script>
+<script src="files/bootstrap/js/bootstrap-switch.js"></script>
+<script src="files/bootstrap/js/spin.js"></script>
+	<!--script src="css/bootstrap/js/jquery-1.11.3.js"></script-->
+	<script src="files/bootstrap/js/bootstrap.js"></script>
+		<script src="files/sweet_alert/sweetalert.min.js"></script> 
+	<link rel="stylesheet" type="text/css" href="files/sweet_alert/sweetalert.css">
+	<!--check internet-->
+	
+	</script>
+
+
+	<style>
+	
+	
+	.contain {
+    width: 50px;
+    height: 50px;
+}
+
+/* resize images */
+.contain img {
+    width: 100%;
+    height: auto;
+}
+
+
+
+    .contain2 {
+    width: 100%;
+    height: auto;
+}
+
+/* resize images */
+.contain2 img {
+    width: 100%;
+    height: auto;
+}
+	
+	.img-circle {
+    border-radius: 50%;
+
+	}
+	.bttn:focus {
+  outline:none !important;
+}
+		
+		#loader{
+	position:fixed;
+	top:0;
+	visibility:hidden;
+	width:100%;
+	background-color:rgb(0, 0, 0);
+	height:100%;
+	text-align:center;
+	margin:0;
+	padding:0;
+	overflow:hidden;
+	z-index:40000;
+	opacity: 0.8;
+	}
+		ul.side-nav > li:first-child{
+			border-top: 1px #e5e5e5 solid;
+		}
+		ul.side-nav > li{
+			border-bottom: 1px #e5e5e5 solid;
+
+		}
+
+		ul.side-nav >li>ul>li{
+			border-bottom: 1px #999999 solid;
+
+		}
+
+		ul.side-nav > li>ul>li:first-child{
+			border-top: 1px #e5e5e5 solid;
+		}
+
+		
+
+		 .controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 2px 2px 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#address {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 45%;
+}
+
+#address:focus {
+  border-color: #4d90fe;
+}
+
+
+.form-group input[type="checkbox"] {
+    display: none;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span {
+    width: 10px;
+}
+
+.form-group input[type="checkbox"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="checkbox"] + .btn-group > label span:last-child {
+    display: inline-block;
+}
+
+.form-group input[type="checkbox"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="checkbox"]:checked + .btn-group > label span:last-child {
+    display: none;
+
+}
+
+.enforce{
+float: left !important;
+left:10%;
+}
+
+.gmapbtn{
+  background-color: #cc6699 !important; 
+  border-color:  #c6538c !important;
+}
+.gmapbtn:hover{
+  background-color: #bf4080 !important; 
+  border-color: #bf4080 !important;
+}
+
+
+.feabtn{
+  background-color:#ff944d !important; 
+  border-color:  #ff8433 !important;
+}
+.feabtn:hover{
+  background-color: #ff751a !important; 
+  border-color: #ff751a !important;
+}
+
+
+	</style>
+
+
+
+
+
+
+<!--/my include-->
+
+
+    <!-- Custom CSS -->
+    <link href="files/bootstrap/css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="files/bootstrap/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+
+
+
+
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+				<span class="pull-left" style="left:50px important;">
+					<div class="contain">
+                    <img class="media-object img-rounded" src="files/icon.jpg" alt="">
+					</div>
+				</span>
+                <a class="navbar-brand" href="index.php">Land Selection App</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Developers <b class="caret"></b></a>
+                     <ul class="dropdown-menu message-dropdown">
+                        <li class="message-preview">
+                            <a target="_blank" href="https://www.facebook.com/hari.sabari.77">
+                                <div class="media">
+                                    <span class="pull-left">
+										<div class="contain">
+										<img class="media-object img-circle" src="files/dev/hari.jpg" alt="">
+										</div>
+									</span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>Hari Hara Ganesh</strong>
+                                        </h5>
+                                        <!--p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p-->
+                                        <p>B.E Geo-Informatics...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a target="_blank" href="https://www.facebook.com/kiren.kumar.507">
+                                <div class="media">
+                                    <span class="pull-left">
+										<div class="contain">
+                                        <img class="media-object img-circle" src="files/dev/kiren.jpg" alt="">
+										</div>
+									</span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>Kiren Kumar</strong>
+                                        </h5>
+                                        <!--p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p-->
+                                        <p>B.Tech Information Technology...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="message-preview">
+                            <a target="_blank" href="https://www.facebook.com/balaji.ramesh.3910">
+                                <div class="media">
+                                    <span class="pull-left">
+										<div class="contain">
+                                        <img class="media-object img-circle" src="files/dev/balaji.jpg" alt="">
+										</div>
+									</span>
+                                    <div class="media-body">
+                                        <h5 class="media-heading"><strong>R Balaji</strong>
+                                        </h5>
+                                        <!--p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p-->
+                                        <p>B.E Geo-Informatics...</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <!--li class="message-footer">
+                            <a href="#">Read All New Messages</a>
+                        </li-->
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav" >
+                    <li>
+                        <a href="index.php"><i class="fa fa-fw fa-dashboard"></i> Map</a>
+                    </li>
+                    <li class="active">
+                        <a href="info.html"><i class="fa fa-fw fa-desktop"></i> Info</a>
+                    </li>	
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+
+		
+<!----------------------------------------------->
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Project Description
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="index.php">Map</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-desktop"></i> Info
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <!-- Main jumbotron for a primary marketing message or call to action -->
+                <div class="jumbotron">
+                    <h2>Hello!</h2>
+                    <p>
+					This Web app allows you to select a land of your choice from a given area of your choice with the best user interface.
+					Also if you have already selected any land, you can you can view the pros and cons in there.
+					Our app is embedded with different layers of maps that provides data about the nearby 
+					features such as schools, bus stops, railways station….. as well as 
+					the soil maps ,ground water prospects and other such maps that provides you the data
+					about any particular place.
+			
+					</p>            </div>
+
+                <div class="page-header">
+                    <h1>Buttons</h1>
+                </div>
+               
+                 <div class="row">
+                    <div class="col-xs-3">
+                    <input id="select"  type="button" class="btn btn-info bttn" autocomplete="off" value="select"></input>
+                    </div>
+                    <div class="col-xs-10">
+                    <h4>To select the area in which you want search for the land. <br>After selecting the requied features click the done button</h4>
+                    </div>
+                </div><hr>
+                
+                <div class="row">
+                    <div class="col-xs-3">
+                    <input type="button" class="btn btn-primary feabtn bttn" autocomplete="off" value="Edit features to view"></input>
+                    </div>
+                    <div class="col-xs-10">
+                     <h4>To select the types of features to view nearby a point by cliking the marker at a point.</h4>
+                    </div>
+                </div><hr>
+
+                <div class="row">
+                    <div class="col-xs-3">
+                    <input type="button" class="btn btn-primary gmapbtn bttn" autocomplete="off" value="Clear & Back to Gmap" ></input>
+                    </div>
+                    <div class="col-xs-10">
+                     <h4>To clear markers and to return to Gmaps view</h4>
+                    </div>
+                </div><hr>
+
+                
+
+               
+               
+               
+
+            
+                <div class="page-header">
+                    <h1>Overlay Dropdown</h1>
+                </div>
+                
+				  <div class="row">
+                    <div class="col-xs-3">
+                   <div class="contain2">
+                     <img class="img-thumbnail" src="files/demo.png" alt="">
+                     <!--img class="img-rounded" src="files/demo.png" alt=""-->
+                   </div>
+                    </div>
+                    <div class="col-xs-9">
+                     <h4>This allows you to overlay the differnt layers of map that are embedded in database.<br>
+                        You can turn them on and off.
+                     </h4>
+                    </div>
+                </div><hr>
+				
+				
+                			
+                
+               
+                <div class="well">
+                    <p>
+					
+					<h5>All the map features are obtained from Open Street Maps and the algorithim is 
+					based on the features provided by OSM.</h4>
+					</p>
+				</div>
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->		
+		
+
+
+
+            <!-- /.container-fluid -->
+
+
+        <!-- /#page-wrapper -->
+
+    </div>
+
+
+
+
+
+
+</body>
+
+</html>
