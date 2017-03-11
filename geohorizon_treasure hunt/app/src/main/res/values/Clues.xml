@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+   <string-array name="clues">
+       <item id="1">Awin milk house</item>
+       <item id="2">canteen wifi hut</item>
+       <item id="3">Stone bench</item>
+       <item id="4">Vivek audi</item>
+       <item id="5">Snh</item>
+       <item id="6">It dept</item>
+       <item id="7">Cafetera</item>
+       <item id="8">Incubator</item>
+
+   </string-array>
+
+    <string-array name="answers">
+        <item id="1">13.009713, 80.236246,a</item>
+        <item id="2">13.010539, 80.236326,b</item>
+        <item id="3">13.010969, 80.236418,c</item>
+        <item id="4">13.011597, 80.236435,d</item>
+        <item id="5">13.012267, 80.235638,e</item>
+        <item id="6">13.012948, 80.235837,f</item>
+        <item id="7">13.013527, 80.235818,f</item>
+        <item id="8">13.011585, 80.235329,f</item>
+    </string-array>
+</resources>

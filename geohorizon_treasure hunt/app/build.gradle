@@ -1,0 +1,26 @@
+emlnamespace "dotgridlib";
+
+/********************************************************************** 
+*********************************************************************** 
+
+$Header: DotGridCircleFrameEdit.eml 1.2 2002/11/25 00:13:41EST duke Exp  $ 
+
+$Log: DotGridCircleFrameEdit.eml  $ 
+Revision 1.2 2002/11/25 00:13:41EST duke  
+Retrunked by Miles Duke after ERDAS IMAGINE 8.6 passed Acceptance Test. 
+
+*********************************************************************** 
+***********************************************************************/ 
+
+component dotgridcircleframeedit {
+
+	frame dotgridcircleframeeditframe {
+		title "DotGrid Circle Frame Editor";
+		modal;
+	 	textnumber xpart {
+	 		title above center "Center X:";
+	 		at 0,0;
+                	size 8,1;
+			format "8.2";
+			min -999999999;
+			
